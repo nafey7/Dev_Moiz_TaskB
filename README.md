@@ -68,9 +68,11 @@ npm start
 Scrape a URL and extract page metadata.
 
 **Query Parameters:**
+
 - `url` (required): The URL to scrape (must be a valid HTTP/HTTPS URL)
 
 **Success Response (200 OK):**
+
 ```json
 {
   "title": "Page Title",
@@ -83,6 +85,7 @@ Scrape a URL and extract page metadata.
 **Error Responses:**
 
 - **400 Bad Request** - Invalid or missing URL:
+
 ```json
 {
   "error": "Invalid URL"
@@ -90,6 +93,7 @@ Scrape a URL and extract page metadata.
 ```
 
 - **504 Gateway Timeout** - Request timeout (>20 seconds):
+
 ```json
 {
   "error": "Timeout"
@@ -97,9 +101,22 @@ Scrape a URL and extract page metadata.
 ```
 
 - **500 Internal Server Error** - Generic scraping error:
+
 ```json
 {
   "error": "Failed to scrape URL: [error details]"
+}
+```
+
+### GET /health
+
+Health check endpoint.
+
+**Response (200 OK):**
+
+```json
+{
+  "status": "ok"
 }
 ```
 
@@ -112,6 +129,7 @@ curl "http://localhost:3000/api/scrape?url=https://www.wikipedia.org"
 ```
 
 Response:
+
 ```json
 {
   "title": "Wikipedia",
@@ -128,6 +146,7 @@ curl "http://localhost:3000/api/scrape?url=https://example.com"
 ```
 
 Response:
+
 ```json
 {
   "title": "Example Domain",
@@ -144,29 +163,11 @@ curl "http://localhost:3000/api/scrape?url=invalid"
 ```
 
 Response (400):
+
 ```json
 {
   "error": "Invalid URL"
 }
-```
-
-## Project Structure
-
-```
-src/
-├── controllers/          # Request handlers
-│   └── scrapeController.ts
-├── routes/              # API route definitions
-│   └── index.ts
-├── services/            # Core scraping logic
-│   └── scraper.ts
-├── types/              # TypeScript type definitions
-│   └── index.ts
-├── utils/              # Helper functions
-│   ├── errors.ts       # Custom error classes
-│   └── validation.ts   # URL validation
-├── app.ts              # Express app setup
-└── index.ts            # Server entry point
 ```
 
 ## Configuration
@@ -209,6 +210,7 @@ Custom error classes provide proper HTTP status codes:
 ### URL Validation
 
 Uses the `validator` package to ensure URLs:
+
 - Have proper protocol (HTTP/HTTPS)
 - Are valid according to RFC standards
 - Are trimmed of whitespace
@@ -216,6 +218,7 @@ Uses the `validator` package to ensure URLs:
 ### Retry Mechanism
 
 Single retry is implemented for navigation errors:
+
 - Detects net:: errors (DNS failures, connection issues)
 - Automatically retries with 500ms delay
 - Returns error if retry fails
@@ -265,7 +268,7 @@ Custom errors extend `AppError` and specify status codes:
 
 ```typescript
 export class CustomError extends AppError {
-  constructor(message: string = 'Custom error') {
+  constructor(message: string = "Custom error") {
     super(message, 400); // status code
     Object.setPrototypeOf(this, CustomError.prototype);
   }
