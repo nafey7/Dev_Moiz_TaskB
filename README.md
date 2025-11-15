@@ -274,17 +274,3 @@ export class CustomError extends AppError {
   }
 }
 ```
-
-## Scoring Rubric
-
-This implementation addresses all requirements:
-
-- **Correct Extraction** (35 pts): Extracts title, metaDescription, and h1 accurately
-- **Robustness** (30 pts): Handles timeouts, invalid URLs, and various error scenarios
-- **API Design & Cleanliness** (20 pts): Clean separation of concerns, RESTful design
-- **Code Clarity & Structure** (10 pts): Well-organized, typed, and documented
-- **Bonus** (5 pts): Implements retry mechanism for navigation errors
-
-## License
-
-ISC
